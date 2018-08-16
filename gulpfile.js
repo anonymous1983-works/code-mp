@@ -3,7 +3,9 @@ var gulp = require('gulp'),
     extender = require('gulp-html-extend'),
     inline_base64 = require('gulp-inline-base64'),
     config = require('./gulp.config')(),
-    assetsToBase64 = require('./src/package/gulp-assets-to-base64');
+    assetsToBase64 = require('./src/package/gulp-assets-to-base64'),
+    cssClassCrypt = require('./src/package/gulp-css-class-crypt');
+
 $ = require('gulp-load-plugins')({lazy: true});
 
 gulp.task('styles', function () {
@@ -88,7 +90,7 @@ gulp.task('images', ['images:clean'], function () {
         .pipe($.size({title: 'images'}));
 });
 
-gulp.task('html', [], () => {
+gulp.task('html', [], function () {
     return gulp.src(config.html.src)
         .pipe(extender({annotations: true, verbose: false})) // default options
         .pipe(assetsToBase64({
@@ -97,6 +99,19 @@ gulp.task('html', [], () => {
             debug: true
         }))
         .pipe(gulp.dest(config.html.dest));
+});
+
+gulp.task('html-crypt', [], function () {
+    //var dictionaryClassCss = [];
+    var combineWithRepetitions = require('./src/package/combineWithRepetitions');
+    console.log(combineWithRepetitions(['A', 'B'], 2));
+    return gulp.src('./dist/*.html')
+        .pipe(cssClassCrypt({
+            baseDir: config.src + 'images/',
+            maxSize: 14 * 1024,
+            debug: true
+        }))
+        .pipe(gulp.dest('./dist/html-crypt/'));
 });
 
 gulp.task('browser-sync', ['styles', 'scripts'], function () {
