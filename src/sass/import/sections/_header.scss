@@ -1,0 +1,93 @@
+//
+// Section Header
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+$header--navbar-bckground--color: #fff !default;
+$header--navbar-border--color: #D1DDE9 !default;
+
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+
+body.fixed-header-navbar {
+  padding-top: $var-header--navbar--height;
+  &.js--affix-section-navbar-quickaccess{
+    padding-top: $var-section-navbar-quickaccess--height;
+  }
+}
+
+.header {
+
+  .navbar {
+    padding: 0;
+    border-bottom: 1px solid $header--navbar-border--color;
+    background-color: $header--navbar-bckground--color;
+    transition: $transition-base;
+    opacity: 1;
+
+    .js--affix-section-navbar-quickaccess.fixed-header-navbar &{
+      top: -($var-header--navbar--height);
+      opacity: 0;
+    }
+
+    .affix-header & {
+      box-shadow: 0 2px 44px 0 #D1DDE9;
+    }
+
+  }
+
+  .navbar-brand .logo {
+    height: rem(52px);
+    margin: 1.25rem 1.875rem;
+  }
+
+  .navbar-nav {
+    &.navbar-primary,
+    &.navbar-secondary {
+      .nav-item {
+        font-size: rem(13px);
+        text-transform: uppercase;
+        font-weight: $CONST-FONT-WEIGHT-SEMI-BOLD;
+      }
+    }
+
+    &.navbar-primary {
+      padding-right: rem($CONST-BASE-UNIT * 14);
+      .nav-item {
+        .nav-link {
+          padding: rem(($CONST-BASE-UNIT * 2) ($CONST-BASE-UNIT * 1.5));
+        }
+      }
+    }
+
+    &.navbar-secondary {
+      .nav-item {
+        @include media-breakpoint-up(sm) {
+          border-left: 1px solid $header--navbar-border--color;
+        }
+        padding: 0;
+        .nav-link {
+          padding: rem(($CONST-BASE-UNIT * 2) ($CONST-BASE-UNIT * 1.5));
+          @include media-breakpoint-up(sm) {
+            padding: rem(($CONST-BASE-UNIT * 2) ($CONST-BASE-UNIT * 2.5));
+          }
+        }
+        .icon {
+          display: none;
+          @include media-breakpoint-up(sm) {
+            height: rem(41px);
+            width: 100%;
+            display: block;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+      }
+    }
+  }
+
+}

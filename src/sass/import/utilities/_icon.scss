@@ -1,0 +1,61 @@
+//
+// Util Margin
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+
+// Mixin
+// --------------------------------------------------
+@mixin generate-icon($n, $j:1) {
+  @if $j <= $n {
+
+    @for $i from $j through $n {
+
+      $size: ($i * $CONST-BASE-UNIT) / 2;
+      $iclass: "";
+      @if $i != -1 {
+        $iclass: -#{$i};
+      }
+
+      .icon.icon#{$iclass} {
+        width: $size;
+        height: $size;
+        background-size: contain;
+      }
+
+    }
+  }
+}
+
+// Making
+// --------------------------------------------------
+.icon {
+  background-repeat: no-repeat;
+
+  &.bp-c {
+    background-position: 50%;
+  }
+
+  &.bpx-l {
+    background-position-x: left;
+  }
+  &.bpx-c {
+    background-position-x: center;
+  }
+  &.bpx-r {
+    background-position-x: right;
+  }
+  &.bpy-t {
+    background-position-y: top;
+  }
+  &.bpy-c {
+    background-position-y: center;
+  }
+  &.bpy-b {
+    background-position-y: bottom;
+  }
+
+}
+
+@include generate-icon(15);

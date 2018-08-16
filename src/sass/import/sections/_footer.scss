@@ -1,0 +1,115 @@
+//
+// Section Footer
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+$footer-background-color: $blue !default;
+$footer-color: #FFFFFF !default;
+$footer-h3-color: $var-color-blue-lightest !default;
+$footer-hr-border-top-color: $var-color-blue-lightest !default;
+$footer-imput-border-color: $var-color-blue-lightest !default;
+$footer-imput-bg: #0C283B;
+
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+footer.footer {
+  background-color: $footer-background-color;
+  color: $footer-color;
+  padding: rem(($CONST-BASE-UNIT * 4.5) 0);
+
+  .h3 {
+    color: $footer-h3-color;
+    font-size: rem(18px);
+    font-weight: $CONST-FONT-WEIGHT-MEDIUM;
+    margin-bottom: rem($CONST-BASE-UNIT * 1.5);
+  }
+
+  a {
+    color: $footer-color;
+    line-height: rem(24px);
+    &.a-lh-18{
+      line-height: rem(18px);
+      font-size: rem(14px);
+      font-weight:$CONST-FONT-WEIGHT-LIGHT;
+      color: $footer-h3-color;
+    }
+  }
+
+  .hr {
+    margin: rem(($CONST-BASE-UNIT * 2) 0);
+    border-top: 1px solid $footer-hr-border-top-color;
+  }
+
+  ul {
+    margin: 0;
+    font-size: rem(14px);
+    font-weight: $CONST-FONT-WEIGHT-LIGHT;
+
+    .title {
+      font-weight: $CONST-FONT-WEIGHT-BOLD;
+      font-size: rem(14px);
+    }
+
+    .sub-title {
+      color: $footer-h3-color;
+      line-height: rem(14px);
+    }
+
+    &.ul-level-1 {
+      min-height: rem(139px);
+    }
+
+  }
+
+  input {
+    background: $footer-imput-bg;
+    border-radius: rem(2px);
+    border: 1px solid $footer-imput-border-color;
+    color: $footer-color;
+    height: rem(44px);
+  }
+
+  .btn-outline-secondary {
+    background: $green;
+    height: rem(44px);
+    width: rem(44px);
+  }
+
+  .social {
+    margin-top: rem(46px);
+  }
+
+  .geoxia-group {
+    font-size: rem(10px);
+    font-weight: $CONST-FONT-WEIGHT-REGULAR;
+    line-height: rem(13px);
+  }
+  .copyright-nav {
+    font-size: rem(12px);
+    font-weight: $CONST-FONT-WEIGHT-LIGHT;
+    line-height: rem(24px);
+  }
+  .footer-top{
+    padding-bottom: rem(14px);
+  }
+  .block-download{
+    .sub-title{
+      line-height: rem(13px);
+    }
+  }
+
+  .footer-middle{
+    .btn{
+      width: rem(104px);
+    }
+  }
+  .form-subscribe-newsletter{
+    .btn{
+      border:1px solid $green;
+    }
+  }
+}

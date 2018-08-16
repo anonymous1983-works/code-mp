@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="35px" viewBox="0 0 18 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Arrow/Blue Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="06.-Annonces" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="06.1-RECHERCHE-ANNONCE-Détails---Desktop-HD" transform="translate(-165.000000, -2778.000000)" fill="#123F5C">
+            <g id="Group-37" transform="translate(0.000000, 2505.000000)">
+                <g id="Arrow/Dark" transform="translate(174.000000, 290.625000) scale(-1, 1) translate(-174.000000, -290.625000) translate(165.000000, 273.000000)">
+                    <path d="M1.085743,34.6776108 C0.808993845,34.6776108 0.530435875,34.5710508 0.31880417,34.3597368 C-0.106268057,33.9371089 -0.106268057,33.2507902 0.31880417,32.8281623 L15.3193317,17.850158 C15.5996985,17.5684061 15.5996985,17.1096562 15.3193317,16.8279043 L0.31880417,1.84990002 C-0.106268057,1.42727214 -0.106268057,0.740953364 0.31880417,0.318325485 C0.742067579,-0.106108495 1.42941841,-0.106108495 1.85268182,0.318325485 L16.8532094,15.2963297 C17.4012812,15.8417726 17.701545,16.5678256 17.701545,17.3390312 C17.701545,18.1102367 17.4012812,18.8362898 16.8532094,19.3817326 L1.85268182,34.3597368 C1.64105012,34.5710508 1.36249215,34.6776108 1.085743,34.6776108" id="Right-arrow"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

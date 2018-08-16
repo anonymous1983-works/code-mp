@@ -1,0 +1,139 @@
+//
+// Page Login
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+
+  .checkbox {
+    font-weight: 400;
+  }
+
+  .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+
+    &:focus {
+      z-index: 2;
+    }
+  }
+
+  input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+.page-login {
+  .header-navbar-quickaccess {
+    //display: none;
+  }
+  main {
+    .container {
+      margin-bottom: rem($CONST-BASE-UNIT * 27);
+    }
+  }
+  header {
+    &.masthead {
+      margin-bottom: rem(95px);
+      background-image: url(images/bg_page_userpng.png,base64);
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      position: relative;
+      padding-top: rem($CONST-BASE-UNIT * 4);
+      padding-bottom: rem($CONST-BASE-UNIT * 5);
+    }
+    .bg-opacity {
+      position: absolute;
+      background: #005CB2;
+      width: 100%;
+      height: 100%;
+      opacity: 0.8;
+      z-index: 0;
+      top: 0;
+      left: 0;
+    }
+    .inner {
+      z-index: 1;
+      margin: 0;
+      position: relative;
+      color: $light;
+    }
+    .sub-title {
+      font-size: rem($CONST-BASE-UNIT*2);
+      font-weight: $CONST-FONT-WEIGHT-LIGHT;
+    }
+  }
+
+  .form-title {
+    font-weight: $CONST-FONT-WEIGHT-EXTRA-LIGHT;
+    font-size: rem(32px);
+    color: $blue;
+    line-height: rem(40px);
+    margin-bottom: rem(30px);
+  }
+  p {
+    color: $blue;
+    font-size: rem(20px);
+    font-weight: $CONST-FONT-WEIGHT-LIGHT;
+    line-height: rem(28px);
+  }
+
+  .form-login {
+    input {
+      font-size: rem(18px);
+      font-weight: $CONST-FONT-WEIGHT-EXTRA-LIGHT;
+    }
+  }
+  .separateur-verticale {
+    margin-top: rem($CONST-BASE-UNIT * 13.37);
+    //margin-top: 107px;
+    .separateur-verticale-middle {
+      height: rem(41px);
+      width: rem(41px);
+      display: inline-block;
+      color: $var-color-light-steel-blue;
+      background-color: $light;
+      border-radius: 100%;
+      font-size: rem(20px);
+      font-weight: $CONST-FONT-WEIGHT-EXTRA-LIGHT;
+      line-height: rem(41px);
+      z-index: 1;
+      position: relative;
+    }
+  }
+  .separation {
+    clear: both;
+    position: absolute;
+    margin-left: 46%;
+    height: rem(348px);
+    width: rem(1px);
+    background: $var-color-blue-lighter;
+    z-index: 0;
+    top: rem(-50px);
+  }
+
+}

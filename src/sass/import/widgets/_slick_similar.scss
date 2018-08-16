@@ -1,0 +1,128 @@
+//
+// Widget Loader
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+
+.section-slick-similar {
+  background-color: $var-color-blue-lightest;
+  padding: rem($CONST-BASE-UNIT * 4) 0;
+
+  .h2.title {
+    font-size: rem(31px);
+    font-weight: $CONST-FONT-WEIGHT-LIGHT;
+    margin-bottom: rem($CONST-BASE-UNIT * 4);
+  }
+
+  .slick {
+    .slick-arrow {
+      width: initial;
+      position: absolute;
+      bottom: rem(40px);
+
+      &:after {
+        width: rem(24px);
+        height: rem(44px);
+        background-image: url(images/icon-arrow-left-blue.svg,base64);
+        margin-top: rem(-22px);
+      }
+
+      &.slick-prev {
+        background: transparent;
+        left: rem(-$CONST-BASE-UNIT * 6);
+        &:after {
+          left: 0;
+          margin-left: 0;
+        }
+      }
+
+      &.slick-next {
+        background: transparent;
+        right: rem(-$CONST-BASE-UNIT * 6);
+        &:after {
+          right: 0;
+          margin-right: 0;
+        }
+
+      }
+    }
+
+    .slick-dots {
+      position: relative;
+      margin-top: rem($CONST-BASE-UNIT * 4);
+      li {
+        background-color: $var-color-blue-light;
+        &.slick-active {
+          background-color: transparent;
+          border: 1px solid $var-color-blue-light;
+        }
+      }
+    }
+  }
+
+  .slick-item {
+    padding: rem($CONST-BASE-UNIT / 2);
+
+    .card {
+      .card-header {
+        height: rem(220px);
+        position: relative;
+        color: $white;
+        .card-img-top {
+          height: rem(220px);
+          overflow: hidden;
+          background-color: $var-color-light-steel-blue;
+        }
+        .card-header-bottom {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          padding: rem($CONST-BASE-UNIT * 2);
+        }
+        .price {
+          font-size: rem(36px);
+          font-weight: $CONST-FONT-WEIGHT-BOLD;
+        }
+        .price-note {
+
+          color: $gray-200;
+          font-size: rem(11px);
+          font-weight: $CONST-FONT-WEIGHT-BOLD;
+        }
+      }
+      .card-body {
+        .notice {
+          color: $blue;
+          .notice-home-land {
+            .title {
+              font-size: rem(14px);
+              line-height: rem(23px);
+            }
+            .val-item {
+              font-size: rem(13px);
+              font-weight: $CONST-FONT-WEIGHT-MEDIUM;
+              line-height: rem(23px);
+              padding: 0 rem($CONST-BASE-UNIT / 2);
+              background-color: $var-color-blue-lightest;
+              + .val-item {
+                margin-left: rem($CONST-BASE-UNIT / 2);
+              }
+            }
+          }
+          .notice-location {
+            font-size: rem(12px);
+            font-weight: $CONST-FONT-WEIGHT-MEDIUM;
+          }
+        }
+      }
+    }
+
+  }
+}

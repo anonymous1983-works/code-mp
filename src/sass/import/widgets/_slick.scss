@@ -1,0 +1,100 @@
+//
+// Widget Loader
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+$slick-dots-button-background-color: rgba(255, 255, 255, 1);
+$slick-dots-button-active-background-color: rgba(255, 255, 255, 1);
+
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+
+/* Slik Annonce */
+.slick {
+
+  .slick-item {
+    display: none;
+  }
+
+  .slick-arrow {
+    width: rem(170px);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    color: transparent;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+
+    &:after {
+      content: "";
+      width: rem(24px);
+      height: rem(44px);
+      background-image: url(images/icon-arrow-left-white.svg,base64);
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 50%;
+      margin-top: rem(-22px);
+    }
+
+    &.slick-prev {
+      left: 0;
+      @include gradient-x(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+      &:after {
+        left: 30%;
+        margin-left: rem(-22px);
+      }
+    }
+
+    &.slick-next {
+      right: 0;
+      @include gradient-x(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+
+      &:after {
+        right: 30%;
+        margin-right: rem(-22px);
+        transform: rotate(180deg);
+      }
+
+    }
+  }
+
+  .slick-dots {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    list-style: none;
+    position: absolute;
+    bottom: 0;
+    li {
+      width: rem(6px);
+      height: rem(6px);
+      margin: ($CONST-BASE-UNIT / 4) ($CONST-BASE-UNIT / 2);
+      background-color: $slick-dots-button-background-color;
+      border: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+
+      &.slick-active {
+        width: rem(10px);
+        height: rem(10px);
+        margin: 0 ($CONST-BASE-UNIT / 4);
+        background-color: transparent;
+        border: 1px solid $slick-dots-button-background-color;
+      }
+
+      button {
+        @include sr-only();
+      }
+    }
+  }
+}

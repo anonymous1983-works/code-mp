@@ -1,0 +1,51 @@
+$list-icons: () !default;
+$list-icons: map-merge(
+                (
+                        "maisonphenix-dark": "images/maisonphenix-dark.svg",
+                        "simulateur": "images/icon-simulateur.svg",
+                        "calendar": "images/icon-calendar.svg",
+                        "user": "images/icon-user.svg",
+                        "long-arrow-left-blue": "images/icon-long-arrow-left-blue.svg",
+                        "arrow-left-blue": "images/icon-arrow-left-blue.svg",
+                        "bed": "images/icon-bed.svg",
+                        "land-green": "images/icon-land-green.svg",
+                        "home": "images/icon-home.svg",
+                        "file-dark": "images/icon-file-dark.svg",
+                        "call-white": "images/icon-call-white.svg",
+                        "facebook-white" : "images/social/facebook-white.svg",
+                        "googleplus-white" : "images/social/googleplus-white.svg",
+                        "libkedin-white": "images/social/libkedin-white.svg",
+                        "twitter-white": "images/social/twitter-white.svg",
+                        "superficie": "images/icon-superficie.svg",
+                        "download-white": "images/icon-download-white.svg",
+                        "plan2d-white" : "images/icon-plan2d-white.svg",
+                        "dollar-dark" : "images/icon-dollar-dark.svg",
+                        "badge-dark" : "images/icon-badge-dark.svg",
+
+                        "location-white" : "images/icon-location-white.svg",
+                        "location-green": "images/icon-location-green.svg",
+                        "location-dark" : "images/icon-location-dark.svg",
+
+                        "paint-brush-dark" : "images/icon-paint-brush-dark.svg",
+
+                        "land-dark" : "images/icon-land-dark.svg",
+                        "house-dark" : "images/icon-house-dark.svg",
+                        "house-land-dark" : "images/icon-house-land-dark.svg",
+
+                        "camera-dark" : "images/icon-camera-dark.svg",
+                        "shared-dark" : "images/icon-shared-dark.svg",
+
+                        "question-white" : "images/icon-question-white.svg"
+
+
+                ),
+                $list-icons
+);
+
+.icon {
+  @each $icon, $value in $list-icons {
+    &.icon-#{$icon} {
+      background-image: url($value);
+    }
+  }
+}

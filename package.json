@@ -1,0 +1,56 @@
+{
+  "name": "Front",
+  "version": "0.0.1",
+  "description": "",
+  "main": "gulpfile.js",
+  "author": "Anis ABID",
+  "license": "MIT",
+  "homepage": "",
+  "scripts": {
+    "start": "./node_modules/.bin/gulp",
+    "watch": "./node_modules/.bin/gulp",
+    "styles": "./node_modules/.bin/gulp styles",
+    "scripts": "./node_modules/.bin/gulp scripts",
+    "images": "./node_modules/.bin/gulp images",
+    "html": "./node_modules/.bin/gulp html",
+    "styles:64": "./node_modules/.bin/gulp styles:64",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anisabid/front"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.7.5",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-base64": "^0.1.3",
+    "gulp-changed": "^3.1.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^3.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-html-extend": "^1.1.6",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-inline-base64": "^0.1.5",
+    "gulp-jshint": "^2.1.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-size": "^3.0.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "gulp-util": "^3.0.8",
+    "jshint": "^2.9.6",
+    "jshint-stylish": "^2.2.1",
+    "through2": "^2.0.3"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "buffer": "^5.2.0",
+    "hamburgers": "^0.9.3",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.4",
+    "slick-carousel": "^1.8.1"
+  }
+}

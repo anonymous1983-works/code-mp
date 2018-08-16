@@ -1,0 +1,32 @@
+//
+// Section NavBar Reverse
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+
+.navbar-reverse {
+  .btn-back {
+    font-size: rem(16px);
+    font-weight: $CONST-FONT-WEIGHT-LIGHT;
+    text-transform: uppercase;
+    .icon.icon-arrow-left-blue {
+      width: 19px;
+      height: 12px;
+      display: inline-block;
+      margin-right: $CONST-BASE-UNIT * 2;
+    }
+  }
+
+
+  .breadcrumb {
+    font-size: rem(11px);
+  }
+
+}

@@ -1,0 +1,270 @@
+//
+// Page Home
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+$var-section-navbar-quickaccess-box-shadow: 0 2px 44px 0 #D1DDE9 !default;
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+.page-annonce-deatil {
+
+  .section-slick-detail-annonce {
+
+    .btn-share {
+      top: $CONST-BASE-UNIT * 2.5;
+      right: $CONST-BASE-UNIT * 2.5;
+      z-index: 10;
+    }
+
+    .btn-show-pictures {
+      bottom: $CONST-BASE-UNIT * 2.5;
+      left: $CONST-BASE-UNIT * 2.5;
+      z-index: 10;
+    }
+
+    .slick {
+      height: rem(454px);
+      .slick-slide {
+        div,
+        .slick-item,
+        img {
+          height: rem(454px);
+        }
+      }
+    }
+  }
+
+  .section-navbar-quickaccess {
+    z-index: $zindex-fixed + 1;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: -(rem($var-section-navbar-quickaccess--height));
+    background: $white;
+    height: rem($var-section-navbar-quickaccess--height);
+    box-shadow: $var-section-navbar-quickaccess-box-shadow;
+    opacity: 0;
+    transition: $transition-base;
+
+    .nav-link {
+      color: $var-color-light-steel-blue; //$var-color-blue-light;
+      line-height: rem($CONST-BASE-UNIT * 4);
+      font-weight: $CONST-FONT-WEIGHT-LIGHT;
+
+      &.active {
+        color: $var-color-blue-light;
+        background-color: transparent;
+        font-weight: $CONST-FONT-WEIGHT-MEDIUM;
+      }
+    }
+    .section-reminded {
+      .card {
+        margin: 0;
+        border: 0;
+      }
+      .card-header {
+        height: rem($var-section-navbar-quickaccess--height);
+        border: 0;
+        overflow: hidden;
+        .price {
+          font-size: rem(32px);
+        }
+        .price,
+        .price-good-to-know {
+          line-height: rem($var-section-navbar-quickaccess--height) - rem($CONST-BASE-UNIT * 3);
+        }
+        .price-good-to-know {
+          margin-left: $CONST-BASE-UNIT;
+          font-size: rem(14px);
+        }
+      }
+    }
+  }
+
+  &.js--affix-section-navbar-quickaccess .section-navbar-quickaccess {
+    top: 0;
+    opacity: 1;
+  }
+
+  .js--has-section-navbar-quickaccess & {
+
+  }
+
+  .section-content-detail-annonce {
+    margin-bottom: rem($CONST-BASE-UNIT * 4);
+  }
+
+  .section-reminded {
+    .card {
+      margin-top: rem(-(98px + 1));
+      box-shadow: 0 0 10px 0 rgba(212, 221, 231, 0.20);
+    }
+    .card-header {
+      color: $white;
+      background-color: $var-color-blue-light;
+      height: rem(98px);
+      .price {
+        font-size: rem(38px);
+        line-height: rem(49px);
+        font-weight: $CONST-FONT-WEIGHT-BOLD;
+      }
+    }
+    .card-body {
+      .h3 {
+        font-size: rem(22px);
+        line-height: rem(26px);
+        font-weight: $CONST-FONT-WEIGHT-LIGHT;
+      }
+      .info {
+        color: $var-color-light-steel-blue;
+        font-size: rem(11px);
+      }
+      .form-reminded {
+
+      }
+    }
+  }
+
+  .section-detail {
+    .section-header {
+      margin-bottom: rem($CONST-BASE-UNIT * 3);
+    }
+
+    .h1.title {
+      color: $primary;
+      font-size: rem(38px);
+      font-weight: $CONST-FONT-WEIGHT-MEDIUM;
+    }
+
+    .h2.sub-title {
+      color: $primary;
+      font-size: rem(24px);
+      font-weight: $CONST-FONT-WEIGHT-MEDIUM;
+      margin: 0;
+    }
+    p {
+      color: $primary;
+    }
+    .hr {
+      margin: rem($CONST-BASE-UNIT * 3) 0;
+    }
+    .header {
+      color: $primary;
+      .sub-title {
+        color: $var-color-pink-dark;
+        font-size: rem(12px);
+        font-weight: $CONST-FONT-WEIGHT-BOLD;
+      }
+      .location {
+        font-size: rem(18px);
+        font-weight: $CONST-FONT-WEIGHT-LIGHT;
+      }
+      .infos {
+        font-size: rem(12px);
+        font-weight: $CONST-FONT-WEIGHT-LIGHT;
+        line-height: rem(19px);
+        margin-top: rem($CONST-BASE-UNIT * 2);
+
+        strong {
+          font-weight: $CONST-FONT-WEIGHT-MEDIUM;
+        }
+        .info-item + .info-item {
+          margin-left: rem($CONST-BASE-UNIT * 4);
+        }
+      }
+    }
+    .summary {
+      .label {
+        color: $var-color-light-steel-blue;
+        font-size: rem(16px);
+      }
+      .value {
+        color: $primary;
+        font-size: rem(22px);
+        font-weight: $CONST-FONT-WEIGHT-BOLD;
+        line-height: rem(16px);
+      }
+
+    }
+    .budget {
+      .section-header .btn-link {
+        font-size: rem(12px);
+        font-weight: $CONST-FONT-WEIGHT-BOLD;
+        .icon {
+          transform: rotate(180deg);
+        }
+      }
+
+      .budget-list {
+        background-color: $var-color-blue-lightest;
+        padding: rem($CONST-BASE-UNIT * 3.75) 0;
+
+        .budget-item {
+          text-align: center;
+          + .budget-item {
+            border-left: 1px solid $var-color-blue-lighter;
+          }
+
+          .icon {
+            width: 100%;
+            height: rem($CONST-BASE-UNIT * 4.25);
+            background-size: auto rem($CONST-BASE-UNIT * 4.25);
+            margin-bottom: rem($CONST-BASE-UNIT * 0.5);
+            background-position: center;
+            display: block;
+          }
+          .price {
+            line-height: rem($CONST-BASE-UNIT * 5);
+            font-size: rem(26px);
+            font-weight: $CONST-FONT-WEIGHT-MEDIUM;
+            color: $var-color-blue-light;
+          }
+          .summary {
+            line-height: rem(14px);
+            font-size: rem(14px);
+            font-weight: $CONST-FONT-WEIGHT-LIGHT;
+            color: $var-color-light-steel-blue;
+            margin: 0;
+          }
+        }
+
+      }
+    }
+    .assets {
+      .assets-list {
+        line-height: rem(18px);
+
+      }
+    }
+
+    .location {
+      .breadcrumb {
+        font-size: rem(16px);
+      }
+
+    }
+
+  }
+
+  .section-around {
+    padding: rem($CONST-BASE-UNIT * 4) 0;
+
+    .h2.title {
+      font-size: rem(24px);
+      font-weight: $CONST-FONT-WEIGHT-LIGHT;
+      margin-bottom: rem($CONST-BASE-UNIT * 4);
+      strong {
+        font-weight: $CONST-FONT-WEIGHT-MEDIUM;
+      }
+    }
+    ul li {
+      font-weight: $CONST-FONT-WEIGHT-LIGHT;
+      line-height: rem(27px);
+    }
+  }
+
+}
