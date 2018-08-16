@@ -8,14 +8,11 @@ var combine = require('./combine')();
 module.exports = function (opts) {
 
     opts = opts || {};
-    var dictionaryClassCss = [];
 
-    if (!opts.baseDir) opts.baseDir = path.dirname(module.parent.filename);
+
 
     var cssClassCrypt = function (file, callback) {
         var arrayClassCrypt = opts.arrayClassCrypt;
-        //var rand = combine.get.random(tab);
-        var app_path = opts.baseDir;
         var reg_exp = /class=[\"|\'](.*?)[\"|\']/gs;
         var isStream = file.contents && typeof file.contents.on === 'function' && typeof file.contents.pipe === 'function';
         var isBuffer = file.contents instanceof Buffer;
@@ -40,11 +37,11 @@ module.exports = function (opts) {
                 var cssCrypt = [];
 
                 for (var j = 0, len2 = cssArray.length; j < len2; j++) {
-                    if (dictionaryClassCss[cssArray[j]] === undefined && cssArray[j] !== '') {
+                    if (opts.dictionaryClassCss[cssArray[j]] === undefined && cssArray[j] !== '') {
                         var _currentClassCrypt = combine.get.random(arrayClassCrypt);
-                        dictionaryClassCss[cssArray[j]] = _currentClassCrypt.value;
+                        opts.dictionaryClassCss[cssArray[j]] = _currentClassCrypt.value;
                     }
-                    cssCrypt.push(dictionaryClassCss[cssArray[j]]);
+                    cssCrypt.push(opts.dictionaryClassCss[cssArray[j]]);
                 }
                 var _reg_exp = new RegExp('class=[\"|\']('+matches[i].css+')[\"|\']',"gs");
                 str = str.replace(_reg_exp, "class=\"" + cssCrypt.join(' ') + "\"");
@@ -52,6 +49,9 @@ module.exports = function (opts) {
 
             file.contents = new Buffer(str);
 
+            //console.log('---------------');
+            //console.log(opts.dictionaryClassCss);
+            //opts.dictionaryClassCss = dictionaryClassCss
             return callback(null, file);
         }
         callback(null, file);
