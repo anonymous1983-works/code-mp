@@ -8,7 +8,7 @@ module.exports = function (opts) {
 
     opts = Object.assign({}, {
         combine: {
-            n: ['a', 'Z', 'd', 'V', 'h', 'F', 'l', 'e', '8', '3', '9', 't', '2', 'p', 'S', 'W', '1', 'q', 'u', 'o', 'E', 'c', '7', 'Q', 'b', 'i', 'v', 'x', 'L', 'm', 'N'],
+            n: ['a', 'Z', 'd', 'V', 'h', 'F', 'l', 'e', 'A', 'K', 'I', 't', 'D', 'p', 'S', 'W', 'H', 'q', 'u', 'o', 'E', 'c', 'P', 'Q', 'b', 'i', 'v', 'x', 'L', 'm', 'N'],
             k: 3
         }
     }, opts);
@@ -85,27 +85,36 @@ module.exports = function (opts) {
 
     var settings = {
         combine: combine.withoutRepetitions(opts.combine.n, opts.combine.k, true),
-        dictionary: [],
+        dictionary: {},
         reg_exp: {
             html: /class=[\"|\'](.*?)[\"|\']/gs,
-            css: /\.([a-zA-Z_][\w-_]*[^\.\s\{#:\,;])/gm,
+            css: /\.([a-zA-Z_][\w-_]*[^\.\s\{#:\,;\/\>\<\)\[\]\+~])/gm,
             get: {
                 html: function (str) {
                     return new RegExp('class=[\"|\'](' + str + ')[\"|\']', "gs");
                 },
                 css: function (str) {
-                    return new RegExp('/\.(' + str + ')*[\.\s\{#:\,;]', "gm")
+                    return new RegExp('\\.(' + str + ')*[\\.\\s\\{#:\\,;\\/\\>\\<\\)\\[\\]\\+~]', "gm")
                 }
 
             }
         }
     };
 
+    var log = function (str) {
+        console.log(str);
+        var datetime = new Date();
+        str = '\n[' + datetime.toDateString() + '] ' + str.toString();
+        fs.appendFile('./log-baseN.txt', str, function (err) {
+            if (err) throw err;
+            console.log('Log is updated!');
+        });
+    };
+
     var map = require('map-stream');
     var vfs = require('vinyl-fs');
 
-    var baseN = function (file, callback) {
-        var reg_exp = /class=[\"|\'](.*?)[\"|\']/gs;
+    var htmlToBaseN = function (file, callback) {
 
         var isStream = file.contents && typeof file.contents.on === 'function' && typeof file.contents.pipe === 'function';
         var isBuffer = file.contents instanceof Buffer;
@@ -120,25 +129,31 @@ module.exports = function (opts) {
                 found;
             while (found = settings.reg_exp.html.exec(str)) {
                 matches.push({
-                    'txt': found[0],
-                    'css': found[1]
+                    'fullMatch': found[0],
+                    'group': found[1]
                 });
             }
 
-            for (var i = 0, len = matches.length; i < len; i++) {
-                // css to Array
-                var cssArray = matches[i].css.split(/[\s,]+/);
-                var cssCrypt = [];
 
-                for (var j = 0, len2 = cssArray.length; j < len2; j++) {
-                    if (settings.dictionary[cssArray[j]] === undefined && cssArray[j] !== '') {
+            for (var i = 0, len = matches.length; i < len; i++) {
+
+                var className = matches[i].group,
+                    classNameCrypt = '',
+                    classNameArray = className.split(/[\s,]+/);
+                //classNameArrayCrypt = [];
+
+                for (var j = 0, len2 = classNameArray.length; j < len2; j++) {
+                    var subClassName = classNameArray[j];
+                    if (settings.dictionary[subClassName.toString()] === undefined && subClassName !== '') {
                         var _currentClassCrypt = combine.get.random(settings.combine);
-                        settings.dictionary[cssArray[j]] = _currentClassCrypt.value;
+                        settings.dictionary[subClassName.toString()] = _currentClassCrypt.value.toString();
                     }
-                    cssCrypt.push(settings.dictionary[cssArray[j]]);
+                    classNameCrypt += (classNameCrypt !== '') ? ' ' + settings.dictionary[subClassName.toString()] : settings.dictionary[subClassName.toString()];
+                    //classNameArrayCrypt.push(settings.dictionary[subClassName]);
                 }
-                var _reg_exp = new RegExp('class=[\"|\'](' + matches[i].css + ')[\"|\']', "gs");
-                str = str.replace(_reg_exp, "class=\"" + cssCrypt.join(' ') + "\"");
+                var _reg_exp = settings.reg_exp.get.html(className);
+                str = str.replace(_reg_exp, "class=\"" + classNameCrypt + "\"");
+                //str = str.replace(_reg_exp, "class=\"" + classNameArrayCrypt.join(' ') + "\"");
             }
 
             file.contents = new Buffer(str);
@@ -149,10 +164,64 @@ module.exports = function (opts) {
         callback(null, file);
     };
 
+    var cssToBaseN = function (file, callback) {
 
-    return vfs.src(['./dist/**/*.html', './dist/**/*.css'])
-        .pipe(map(baseN))
-        .pipe(vfs.dest(opts.dist));
+        var isStream = file.contents && typeof file.contents.on === 'function' && typeof file.contents.pipe === 'function';
+        var isBuffer = file.contents instanceof Buffer;
+
+
+        if (isBuffer) {
+            var str = String(file.contents);
+
+            var matches = [],
+                found;
+            while (found = settings.reg_exp.css.exec(str)) {
+                matches.push({
+                    'fullMatch': found[0],
+                    'group': found[1]
+                });
+            }
+
+
+            for (var i = 0, len = matches.length; i < len; i++) {
+                var className = matches[i].group;
+
+                if (settings.dictionary[className.toString()] === undefined && className !== '') {
+                    var _currentClassCrypt = combine.get.random(settings.combine);
+                    settings.dictionary[className.toString()] = _currentClassCrypt.value;
+                }
+            }
+
+            var _json_dictionary = JSON.parse(JSON.stringify(settings.dictionary));
+            for (var key in _json_dictionary) {
+                var _reg_exp = settings.reg_exp.get.css(key);
+                str = str.replace(_reg_exp, "." + _json_dictionary[key]);
+            }
+
+            file.contents = new Buffer(str);
+
+            return callback(null, file);
+        }
+
+        callback(null, file);
+    };
+
+    // Crypt HTML
+    log('Starting Crypt baeN Html file');
+    return vfs.src(path.join(opts.src, '**/*.html'))
+        .pipe(map(htmlToBaseN))
+        .pipe(vfs.dest(opts.dist))
+        .on('end', function () {
+            log('Finished Crypt baeN Html file & Starting Crypt baeN CSS file');
+            // Crypt Syles
+            return vfs.src(path.join(opts.src, '**/*.css'))
+                .pipe(map(cssToBaseN))
+                .pipe(vfs.dest(opts.dist))
+                .on('end', function () {
+                    log('Finished Crypt baeN CSS file');
+                });
+        });
+
 
     //return es.map(baseN);
 };
