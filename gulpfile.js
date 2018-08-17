@@ -4,10 +4,7 @@ var gulp = require('gulp'),
     inline_base64 = require('gulp-inline-base64'),
     config = require('./gulp.config')(),
     assetsToBase64 = require('./src/package/gulp-assets-to-base64'),
-    cssClassCrypt = require('./src/package/gulp-css-class-crypt'),
-    combine = require('./src/package/combine')();
-var arrayCombine = combine.withoutRepetitions(['a', 'Z', 'd', 'V', 'h', 'F', 'l', 'e', '8', '3', '9', 't', '2', 'p', 'S', 'W', '1', 'q', 'u', 'o', 'E', 'c', '7', 'Q', 'b', 'i', 'v', 'x', 'L', 'm', 'N'], 3, true);
-var dictionaryClassCss = [];
+    baseN = require('./src/package/gulp-baseN');
 
 $ = require('gulp-load-plugins')({lazy: true});
 
@@ -105,18 +102,14 @@ gulp.task('html', [], function () {
         .pipe(gulp.dest(config.html.dest));
 });
 
-gulp.task('html-crypt', [], function () {
+gulp.task('baseN', [], function () {
     //'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
     // 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z';
-
-
-    return gulp.src('./dist/*.html')
-        .pipe(cssClassCrypt({
+    return gulp.src(['./dist/**/*.html', './dist/**/*.css'])
+        .pipe(baseN({
             debug: true,
-            arrayClassCrypt: arrayCombine,
-            dictionaryClassCss: dictionaryClassCss
         }))
-        .pipe(gulp.dest('./dist/html-crypt/'));
+        .pipe(gulp.dest('./base-n/'));
 
 
 });
