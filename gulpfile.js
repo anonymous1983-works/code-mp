@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     config = require('./gulp.config')(),
     assetsToBase64 = require('./src/package/gulp-assets-to-base64'),
     baseN = require('./src/package/gulp-baseN');
+    newBaseN = require('./src/package/baseN');
 
 $ = require('gulp-load-plugins')({lazy: true});
 
@@ -105,12 +106,18 @@ gulp.task('html', [], function () {
 gulp.task('baseN', [], function () {
     //'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
     // 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z';
-    return gulp.src(['./dist/**/*.html', './dist/**/*.css'])
-        .pipe(baseN({
-            debug: true,
-        }))
-        .pipe(gulp.dest('./base-n/'));
 
+    // return gulp.src(['./dist/**/*.html', './dist/**/*.css'])
+    //     .pipe(baseN({
+    //         debug: true
+    //     }))
+    //     .pipe(gulp.dest('./base-n/'));
+
+    return newBaseN({
+        debug: true,
+        src: './dist/',
+        dist: './dist-n/'
+    });
 
 });
 

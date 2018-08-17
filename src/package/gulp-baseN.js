@@ -34,10 +34,10 @@ module.exports = function (opts) {
         var isStream = file.contents && typeof file.contents.on === 'function' && typeof file.contents.pipe === 'function';
         var isBuffer = file.contents instanceof Buffer;
 
-        console.log(path.extname(file.path));
+        //console.log(path.extname(file.path));
 
 
-        /*if (isBuffer) {
+        if (isBuffer) {
             var str = String(file.contents);
 
             var matches = [],
@@ -68,7 +68,7 @@ module.exports = function (opts) {
             file.contents = new Buffer(str);
 
             return callback(null, file);
-        }*/
+        }
         callback(null, file);
     };
     return es.map(baseN);
