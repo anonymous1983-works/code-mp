@@ -88,13 +88,13 @@ module.exports = function (opts) {
         dictionary: {},
         reg_exp: {
             html: /class=[\"|\'](.*?)[\"|\']/gs,
-            css: /\.([a-zA-Z_][\w-_]*[^\.\s\{#:\,;\/\>\<\)\[\]\+~])/gm,
+            css: /\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?![^\{]*\})/gm,
             get: {
                 html: function (str) {
-                    return new RegExp('class=[\"|\'](' + str + ')[\"|\']', "gs");
+                    return new RegExp('class=[\"|\'](' + str + ')[\"|\']', 'gs');
                 },
                 css: function (str) {
-                    return new RegExp('\\.(' + str + ')*[\\.\\s\\{#:\\,;\\/\\>\\<\\)\\[\\]\\+~]', "gm")
+                    return new RegExp('\\.(' + str + ')[\\s\\}\\{:><\\.,*]', 'gm');
                 }
 
             }
@@ -102,12 +102,10 @@ module.exports = function (opts) {
     };
 
     var log = function (str) {
-        console.log(str);
         var datetime = new Date();
         str = '\n[' + datetime.toDateString() + '] ' + str.toString();
         fs.appendFile('./log-baseN.txt', str, function (err) {
             if (err) throw err;
-            console.log('Log is updated!');
         });
     };
 
@@ -164,7 +162,7 @@ module.exports = function (opts) {
         callback(null, file);
     };
 
-    var cssToBaseN = function (file, callback) {
+    var updateDictionary = function (file, callback) {
 
         var isStream = file.contents && typeof file.contents.on === 'function' && typeof file.contents.pipe === 'function';
         var isBuffer = file.contents instanceof Buffer;
@@ -182,7 +180,6 @@ module.exports = function (opts) {
                 });
             }
 
-
             for (var i = 0, len = matches.length; i < len; i++) {
                 var className = matches[i].group;
 
@@ -192,7 +189,32 @@ module.exports = function (opts) {
                 }
             }
 
-            var _json_dictionary = JSON.parse(JSON.stringify(settings.dictionary));
+            return callback(null, file);
+        }
+
+        callback(null, file);
+    };
+
+    var cssToBaseN = function (file, callback) {
+
+        var isStream = file.contents && typeof file.contents.on === 'function' && typeof file.contents.pipe === 'function';
+        var isBuffer = file.contents instanceof Buffer;
+        var _json_dictionary = JSON.parse(JSON.stringify(settings.dictionary));
+
+
+        if (isBuffer) {
+            var str = String(file.contents);
+
+            var matches = [],
+                found;
+            while (found = settings.reg_exp.css.exec(str)) {
+                matches.push({
+                    'fullMatch': found[0],
+                    'group': found[1]
+                });
+            }
+
+
             for (var key in _json_dictionary) {
                 var _reg_exp = settings.reg_exp.get.css(key);
                 str = str.replace(_reg_exp, "." + _json_dictionary[key]);
@@ -215,10 +237,16 @@ module.exports = function (opts) {
             log('Finished Crypt baeN Html file & Starting Crypt baeN CSS file');
             // Crypt Syles
             return vfs.src(path.join(opts.src, '**/*.css'))
-                .pipe(map(cssToBaseN))
-                .pipe(vfs.dest(opts.dist))
+                .pipe(map(updateDictionary))
+                //.pipe(vfs.dest(opts.dist))
                 .on('end', function () {
-                    log('Finished Crypt baeN CSS file');
+                    log(JSON.stringify(settings.dictionary));
+                    return vfs.src(path.join(opts.src, '**/*.css'))
+                        .pipe(map(cssToBaseN))
+                        .pipe(vfs.dest(opts.dist))
+                        .on('end', function () {
+                            log('Finished Crypt baeN CSS file');
+                        });
                 });
         });
 

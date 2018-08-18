@@ -1,3 +1,4 @@
+//https://www.dcode.fr/combinaisons
 module.exports = function () {
     var combine = {
         withRepetitions: function (comboOptions, comboLength, join) {
