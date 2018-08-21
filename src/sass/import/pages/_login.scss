@@ -46,7 +46,8 @@
   }
 }
 
-.page-login {
+.page-login,
+.page-inscription{
   .header-navbar-quickaccess {
     //display: none;
   }
@@ -54,6 +55,15 @@
     .container {
       margin-bottom: rem($CONST-BASE-UNIT * 27);
     }
+  }
+
+  &.page-inscription{
+    main {
+      .container {
+        margin-bottom: rem($CONST-BASE-UNIT * 13);
+      }
+    }
+
   }
   header {
     &.masthead {
@@ -65,6 +75,7 @@
       position: relative;
       padding-top: rem($CONST-BASE-UNIT * 4);
       padding-bottom: rem($CONST-BASE-UNIT * 5);
+      min-height: rem(170px);
     }
     .bg-opacity {
       position: absolute;

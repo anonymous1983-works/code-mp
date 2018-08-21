@@ -10,6 +10,11 @@ module.exports = function (opts) {
         combine: {
             n: ['a', 'Z', 'd', 'V', 'h', 'F', 'l', 'e', 'A', 'K', 'I', 't', 'D', 'p', 'S', 'W', 'H', 'q', 'u', 'o', 'E', 'c', 'P', 'Q', 'b', 'i', 'v', 'x', 'L', 'm', 'N'],
             k: 3
+        },
+        reg_exp: {
+            notin: {
+                html: /^(\s*(js--))/g
+            }
         }
     }, opts);
 
@@ -83,6 +88,8 @@ module.exports = function (opts) {
         }
     };
 
+    //var tx = /\.(?!(slick-|js--))(js--affix-section-navbar-quickaccess)([\s\}\{:><\.,*])/gm;
+
     var settings = {
         combine: combine.withoutRepetitions(opts.combine.n, opts.combine.k, true),
         dictionary: {},
@@ -94,7 +101,7 @@ module.exports = function (opts) {
                     return new RegExp('class=[\"|\'](' + str + ')[\"|\']', 'gs');
                 },
                 css: function (str) {
-                    return new RegExp('\\.(' + str + ')[\\s\\}\\{:><\\.,*]', 'gm');
+                    return new RegExp('\\.(?!(slick-|js--))(' + str + ')([\\s\\}\\{:><\\.,*])', 'gm');
                 }
 
             }
@@ -142,12 +149,16 @@ module.exports = function (opts) {
 
                 for (var j = 0, len2 = classNameArray.length; j < len2; j++) {
                     var subClassName = classNameArray[j];
-                    if (settings.dictionary[subClassName.toString()] === undefined && subClassName !== '') {
-                        var _currentClassCrypt = combine.get.random(settings.combine);
-                        settings.dictionary[subClassName.toString()] = _currentClassCrypt.value.toString();
+                    // test if subClassName not in html condition
+                    if (!opts.reg_exp.notin.html.test(subClassName.trim())){
+                        if (settings.dictionary[subClassName.toString()] === undefined && subClassName !== '') {
+                            var _currentClassCrypt = combine.get.random(settings.combine);
+                            settings.dictionary[subClassName.toString()] = _currentClassCrypt.value.toString();
+                        }
+                        classNameCrypt += (classNameCrypt !== '') ? ' ' + settings.dictionary[subClassName.toString()] : settings.dictionary[subClassName.toString()];
+                        //classNameArrayCrypt.push(settings.dictionary[subClassName]);
                     }
-                    classNameCrypt += (classNameCrypt !== '') ? ' ' + settings.dictionary[subClassName.toString()] : settings.dictionary[subClassName.toString()];
-                    //classNameArrayCrypt.push(settings.dictionary[subClassName]);
+
                 }
                 var _reg_exp = settings.reg_exp.get.html(className);
                 str = str.replace(_reg_exp, "class=\"" + classNameCrypt + "\"");
@@ -217,7 +228,8 @@ module.exports = function (opts) {
 
             for (var key in _json_dictionary) {
                 var _reg_exp = settings.reg_exp.get.css(key);
-                str = str.replace(_reg_exp, "." + _json_dictionary[key]);
+                str = str.replace(_reg_exp, "." + _json_dictionary[key] + "$3");
+                //str = str.replace(_reg_exp, "." + _json_dictionary[key]);
             }
 
             file.contents = new Buffer(str);
