@@ -108,9 +108,17 @@ module.exports = function (opts) {
         }
     };
 
+
+
     var log = function (str) {
         var datetime = new Date();
-        str = '\n[' + datetime.toDateString() + '] ' + str.toString();
+        const regex = /([{,])/gm;
+        if(str.toString()[0] === '{'){ // if JSON format
+            var str_format = str.replace(regex, "$1\n\t");
+            str = '\n[' + datetime.toString() + '] ' + str_format;
+        }else{
+            str = '\n[' + datetime.toString() + '] ' + str.toString();
+        }
         fs.appendFile('./log-baseN.txt', str, function (err) {
             if (err) throw err;
         });
@@ -119,7 +127,10 @@ module.exports = function (opts) {
     var map = require('map-stream');
     var vfs = require('vinyl-fs');
 
+    // Crypt HTML
     var htmlToBaseN = function (file, callback) {
+
+        // Crypt HTML
 
         var isStream = file.contents && typeof file.contents.on === 'function' && typeof file.contents.pipe === 'function';
         var isBuffer = file.contents instanceof Buffer;
@@ -143,7 +154,7 @@ module.exports = function (opts) {
             for (var i = 0, len = matches.length; i < len; i++) {
 
                 var className = matches[i].group,
-                    classNameCrypt = '',
+                    classNameUpdated = '',
                     classNameArray = className.split(/[\s,]+/);
                 //classNameArrayCrypt = [];
 
@@ -155,13 +166,15 @@ module.exports = function (opts) {
                             var _currentClassCrypt = combine.get.random(settings.combine);
                             settings.dictionary[subClassName.toString()] = _currentClassCrypt.value.toString();
                         }
-                        classNameCrypt += (classNameCrypt !== '') ? ' ' + settings.dictionary[subClassName.toString()] : settings.dictionary[subClassName.toString()];
+                        classNameUpdated += (classNameUpdated !== '') ? ' ' + settings.dictionary[subClassName.toString()] : settings.dictionary[subClassName.toString()];
                         //classNameArrayCrypt.push(settings.dictionary[subClassName]);
+                    }else{
+                        classNameUpdated += (classNameUpdated !== '') ? ' ' + subClassName.toString().trim() : subClassName.toString().trim();
                     }
 
                 }
                 var _reg_exp = settings.reg_exp.get.html(className);
-                str = str.replace(_reg_exp, "class=\"" + classNameCrypt + "\"");
+                str = str.replace(_reg_exp, "class=\"" + classNameUpdated + "\"");
                 //str = str.replace(_reg_exp, "class=\"" + classNameArrayCrypt.join(' ') + "\"");
             }
 
@@ -206,6 +219,7 @@ module.exports = function (opts) {
         callback(null, file);
     };
 
+    // Crypt CSS
     var cssToBaseN = function (file, callback) {
 
         var isStream = file.contents && typeof file.contents.on === 'function' && typeof file.contents.pipe === 'function';
@@ -240,7 +254,6 @@ module.exports = function (opts) {
         callback(null, file);
     };
 
-    // Crypt HTML
     log('Starting Crypt baeN Html file');
     return vfs.src(path.join(opts.src, '**/*.html'))
         .pipe(map(htmlToBaseN))
@@ -252,6 +265,7 @@ module.exports = function (opts) {
                 .pipe(map(updateDictionary))
                 //.pipe(vfs.dest(opts.dist))
                 .on('end', function () {
+                    log(Object.keys(settings.dictionary).length + ' class crypted !');
                     log(JSON.stringify(settings.dictionary));
                     return vfs.src(path.join(opts.src, '**/*.css'))
                         .pipe(map(cssToBaseN))

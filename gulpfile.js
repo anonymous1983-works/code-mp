@@ -109,12 +109,16 @@ gulp.task('baseN', [], function () {
     return newBaseN({
         debug: true,
         src: './dist/',
-        dist: './dist-n/'
+        dist: './dist-n/',
+        combine: {
+            n: ['a', 'Z', 'd', 'V', 'h', 'F', 'l', 'e', 'A', 'K', 'I', 't', 'D', 'p', 'S'],
+            k: 2
+        }
     });
 
 });
 
-gulp.task('server', ['baseN'], function () {
+gulp.task('test-baseN', ['baseN'], function () {
     browserSync({
         server: {
             baseDir: './dist-n/',
